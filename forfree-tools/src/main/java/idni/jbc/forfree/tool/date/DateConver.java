@@ -180,11 +180,29 @@ public class DateConver extends Date {
         return this.calendar.get(this.calendar.YEAR);
     }
 
+    /**
+     * 返回当前实例表示的月<br>
+     *
+     * @return int 返回值范围是1-12，1代表一月，12代表十二月
+     *
+     * @since 1.01
+     *
+     * @see java.util.Calendar
+     */
+    public int month() {
+        return this.julianMonth() + 1;
+    }
 
-
-
-
-
-
-
+    /**
+     * 返回当前实例以格列高利历(Gregorian) /朱利安历(Julian)表示的月<br>
+     *
+     * @return int 返回值范围是0-11，0代表一月，11代表十二月
+     *
+     * @since 1.01
+     *
+     * @see java.util.Calendar
+     */
+    public int julianMonth() {
+        return this.calendar.get(this.calendar.MONTH);
+    }
 }
