@@ -3,3 +3,8 @@
 
 */target
 *.swp
+*settings*
+*vscode*
+*.project
+*.classpath
+*target
