@@ -16,9 +16,9 @@ public class DateToolTest {
     @Test
     public void testMonth() {
 
-        Assert.assertEquals(9, DateTool.month());
-        Assert.assertEquals(9, DateTool.month(new Date()));
-        Assert.assertEquals(9, DateTool.month(Calendar.getInstance()));
+        Assert.assertEquals(10, DateTool.month());
+        Assert.assertEquals(10, DateTool.month(new Date()));
+        Assert.assertEquals(10, DateTool.month(Calendar.getInstance()));
     }
 
     @Test
