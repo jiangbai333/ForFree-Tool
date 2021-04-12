@@ -9,8 +9,4 @@
 *.classpath
 *target
 *idea
-<<<<<<< Updated upstream
 *.iml
-=======
-*iml
->>>>>>> Stashed changes
