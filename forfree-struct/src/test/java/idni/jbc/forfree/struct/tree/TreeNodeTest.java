@@ -31,7 +31,10 @@ public class TreeNodeTest {
         TreeNode<String> td = new TreeNode<String>("d", t10, t11, t12);
 
         TreeNode<String> te = new TreeNode<String>("e", ta, tc);
-        this.tree = new TreeNode<String>("f", te, td);
+        //this.tree = new TreeNode<String>("f", te, td);
+        this.tree = tc;
+        System.out.println(t1.degree);
+        System.out.println(this.tree.numberOfNodes);
     }
 
     @Test
@@ -39,8 +42,7 @@ public class TreeNodeTest {
 
     @Test
     public void testDepth() {
-        Assert.assertEquals(5, this.tree.depth());
-        System.out.println(tree.val);
+        Assert.assertEquals(3, this.tree.depth());
         //Assert.assertTrue(DateTool.dateTime().matches("\\d{4}年\\d{2}月\\d{2}日 \\d{2}:\\d{2}:\\d{2} \\d{3}"));
     }
 }
