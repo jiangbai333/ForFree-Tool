@@ -1,10 +1,12 @@
 package idni.jbc.forfree.struct.tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
- * 树
+ * 树结构，可用来构造普通树，提供不分操作方法
  *
  * @param <T> 树节点类型
  *
@@ -23,6 +25,7 @@ public class TreeNode<T> {
     /** 树的度 */
     public int degree = 0;
 
+    /** 树的节点数量（包含自身） */
     public int numberOfNodes = 1;
 
     /** 子节点列表 */
@@ -58,12 +61,29 @@ public class TreeNode<T> {
         }
     }
 
+    /**
+     * 为当前节点添加一个节点
+     *
+     * @param node 将要被添加的节点
+     *
+     * @since 1.01
+     */
     public void addNode(TreeNode<T> node) {
         this.degree++;
         this.numberOfNodes++;
         this.children.add(node);
     }
 
+    /**
+     * 为当前节点添加一组节点
+     *
+     * @param nodes 包含需要被添加的节点的 {@link java.util.List}
+     * @return 添加的数量
+     *
+     * @since 1.01
+     *
+     * @see java.util.List
+     */
     public int addNodes(List<TreeNode<T>> nodes) {
         this.degree += nodes.size();
         this.numberOfNodes += nodes.size();
@@ -71,16 +91,69 @@ public class TreeNode<T> {
         return nodes.size();
     }
 
-    public List<TreeNode<T>> getChildren() {
+    /**
+     * 获取剪掉当前节点形成的森林
+     *
+     * @return List 返回的包含当前节点所有子节点的 {@link java.util.List}
+     *
+     * @since 1.01
+     *
+     * @see java.util.List
+     */
+    public List<TreeNode<T>> getForest() {
         return this.children;
     }
 
+    /**
+     * 获取以当前节点为根的树的深度
+     *
+     * @return 树的深度
+     *
+     * @since 1.01
+     *
+     * @see #depth(TreeNode)
+     */
     public int depth() {
         return depth(this);
     }
 
+    /**
+     * 获取以指定节点为根的树的深度
+     *
+     * @param node 指定节点
+     *
+     * @return 树的深度
+     *
+     * @since 1.01
+     *
+     * @see idni.jbc.forfree.struct.tree.TreeNode
+     */
     public static int depth(TreeNode node) {
-        List<TreeNode> children = node.getChildren();
+        int depth = 0, nodeDepth = 0;
+        Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
+        deque.addFirst(node);
+
+
+
+        //while ( (TreeNode tempNode = deque.pollFirst()) != null ) {
+        while ( deque.pollFirst() != null ) {
+            TreeNode tempNode = deque.pop();
+            List<TreeNode> children = tempNode.getForest();
+            int childrenNum = children.size();
+
+            if ( children.size() == 0 ) {
+                depth = depth >= nodeDepth ? depth : nodeDepth;
+            } else {
+                nodeDepth++;
+                for (int i = 0; i < childrenNum; i++ ) {
+                    deque.addFirst(children.get(i));
+                }
+            }
+        }
+
+        return depth;
+
+        /*List<TreeNode> children = node.getForest();
         int nodeDepth = 1,
             childrenNum = children.size();
 
@@ -93,7 +166,7 @@ public class TreeNode<T> {
             nodeDepth++;
         }
 
-        return nodeDepth;
+        return nodeDepth;*/
     }
 
     /**
@@ -106,8 +179,20 @@ public class TreeNode<T> {
     public int clear() {
         int num = this.children.size();
         this.numberOfNodes -= num;
+        this.degree = 0;
         this.children.clear();
         return num;
+    }
+
+    /**
+     * 判断当前节点是否为叶子节点
+     *
+     * @return true - 是叶子结点 false - 不是叶子结点
+     *
+     * @since 1.01
+     */
+    public boolean ifLeaf() {
+        return this.degree == 0;
     }
 
     @Override
