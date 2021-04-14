@@ -5,4 +5,4 @@
  * @author 姜柏超
  * @version 1.01
  */
-package idni.jbc.forfree.tool;
+package idni.jbc.forfree.hex;
