@@ -107,5 +107,6 @@
     <module>forfree-core</module>
     <module>forfree-tools</module>
     <module>forfree-hex</module>
+    <module>forfree-struct</module>
   </modules>
 </project>
