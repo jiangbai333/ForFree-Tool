@@ -135,9 +135,8 @@ public class TreeNode<T> {
 
 
 
-        //while ( (TreeNode tempNode = deque.pollFirst()) != null ) {
-        while ( deque.pollFirst() != null ) {
-            TreeNode tempNode = deque.pop();
+        while ( (TreeNode tempNode = deque.pollFirst()) != null ) {
+            deque.pop();
             List<TreeNode> children = tempNode.getForest();
             int childrenNum = children.size();
 
