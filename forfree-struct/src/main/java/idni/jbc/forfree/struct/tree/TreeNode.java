@@ -133,10 +133,8 @@ public class TreeNode<T> {
         Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
         deque.addFirst(node);
 
-
         TreeNode tempNode;
         while ( (tempNode = deque.pollFirst()) != null ) {
-            deque.pop();
             List<TreeNode> children = tempNode.getForest();
             int childrenNum = children.size();
 
