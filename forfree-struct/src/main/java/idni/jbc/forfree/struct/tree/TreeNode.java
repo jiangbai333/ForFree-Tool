@@ -129,7 +129,7 @@ public class TreeNode<T> {
      * @see idni.jbc.forfree.struct.tree.TreeNode
      */
     public static int depth(TreeNode node) {
-        int depth = 0, nodeDepth = 0;
+        int depth = 1, nodeDepth = 1;
         Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
         deque.addFirst(node);
 
