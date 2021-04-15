@@ -147,23 +147,7 @@ public class TreeNode<T> {
                 }
             }
         }
-
         return depth;
-
-        /*List<TreeNode> children = node.getForest();
-        int nodeDepth = 1,
-            childrenNum = children.size();
-
-        for ( int i = 0; i < childrenNum; i++ ) {
-            int childDepth = depth(children.get(i));
-            nodeDepth = nodeDepth >= childDepth ? nodeDepth : childDepth;
-        }
-
-        if ( childrenNum > 0 ) {
-            nodeDepth++;
-        }
-
-        return nodeDepth;*/
     }
 
     /**
