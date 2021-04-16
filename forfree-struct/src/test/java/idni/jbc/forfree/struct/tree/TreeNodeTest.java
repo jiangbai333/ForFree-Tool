@@ -1,40 +1,35 @@
 package idni.jbc.forfree.struct.tree;
 
-import idni.jbc.forfree.struct.tree.TreeNode;
+import idni.jbc.forfree.struct.tree.BinaryTree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TreeNodeTest {
 
-    private TreeNode<String> tree;
+    private BinaryTree<Integer> BTree;
 
     @Before
     public void init() {
-        TreeNode<String> 
-            t1 = new TreeNode<String>("1"),
-            t2 = new TreeNode<String>("2"),
-            t3 = new TreeNode<String>("3"),
-            t4 = new TreeNode<String>("4"),
-            t5 = new TreeNode<String>("5"),
-            t6 = new TreeNode<String>("6"),
-            t7 = new TreeNode<String>("7"),
-            t8 = new TreeNode<String>("8"),
-            t9 = new TreeNode<String>("9"),
-            t10 = new TreeNode<String>("10"),
-            t11 = new TreeNode<String>("11"),
-            t12 = new TreeNode<String>("12");
+        BinaryTree<Integer> BTree;
+        BinaryTree<Integer> 
+            BTree16 = new BinaryTree<Integer>(16),
+            BTree15 = new BinaryTree<Integer>(15),
+            BTree14 = new BinaryTree<Integer>(14, BTree15, BTree16),
+            BTree13 = new BinaryTree<Integer>(13),
+            BTree12 = new BinaryTree<Integer>(12),
+            BTree11 = new BinaryTree<Integer>(11, BTree12, BTree13),
+            BTree10 = new BinaryTree<Integer>(10, BTree11, BTree14),
+            BTree9 = new BinaryTree<Integer>(9),
+            BTree8 = new BinaryTree<Integer>(8),
+            BTree7 = new BinaryTree<Integer>(7, BTree8, BTree9),
+            BTree6 = new BinaryTree<Integer>(6),
+            BTree5 = new BinaryTree<Integer>(5),
+            BTree4 = new BinaryTree<Integer>(4, BTree5, BTree6),
+            BTree3 = new BinaryTree<Integer>(3, BTree4, BTree7),
+            BTree2 = new BinaryTree<Integer>(2),
+            BTree1 = new BinaryTree<Integer>(1, BTree2, BTree3);
 
-        TreeNode<String> ta = new TreeNode<String>("a", t1, t2, t3);
-        TreeNode<String> tb = new TreeNode<String>("b", t4, t5, t6);
-        TreeNode<String> tc = new TreeNode<String>("c", tb, t7, t8, t9);
-        TreeNode<String> td = new TreeNode<String>("d", t10, t11, t12);
-
-        TreeNode<String> te = new TreeNode<String>("e", ta, tc);
-        //this.tree = new TreeNode<String>("f", te, td);
-        this.tree = te;
-        System.out.println(t1.degree);
-        System.out.println(this.tree.numberOfNodes);
     }
 
     @Test
@@ -42,7 +37,7 @@ public class TreeNodeTest {
 
     @Test
     public void testDepth() {
-        Assert.assertEquals(5, this.tree.depth());
+        Assert.assertEquals(5, this.BTree.depth());
         //Assert.assertTrue(DateTool.dateTime().matches("\\d{4}年\\d{2}月\\d{2}日 \\d{2}:\\d{2}:\\d{2} \\d{3}"));
     }
 }
