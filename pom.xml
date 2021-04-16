@@ -33,6 +33,8 @@
         <configuration>
           <source>${compile.version}</source>
           <target>${compile.version}</target>
+          <!-- 完整的编译检查 -->
+          <compilerArgument>-Xlint:unchecked</compilerArgument>
         </configuration>
       </plugin>
       <!-- Javadoc -->

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import idni.jbc.forfree.struct.tree.Leaf;
+
 /**
  * 树结构，可用来构造普通树，提供不分操作方法
  *
@@ -15,33 +17,19 @@ import java.util.List;
  *
  * @since 1.01
  *
- * @see idni.jbc.forfree.struct.tree.BinaryTree
+ * @see idni.jbc.forfree.struct.tree.Leaf
  */
-public class TreeNode<T> {
-
-    /** 节点值 */
-    public T val;
-
-    /** 树的度 */
-    public int degree = 0;
-
-    /** 树的节点数量（包含自身） */
-    public int numberOfNodes = 1;
+public class TreeNode<T> extends Leaf<T> {
 
     /** 子节点列表 */
-    private List<TreeNode<T>> children = new ArrayList<TreeNode<T>>();
-
-    //添加节点时需要将父节点depth更新，一直回溯到根结点
-    //public int depth = 1;
-
-    public TreeNode() { }
+    public List<TreeNode<T>> children = new ArrayList<TreeNode<T>>();
 
     /**
      * 构造树节点
-     * 
+     *
      * @param val 指定节点的值
      */
-    public TreeNode(T val) { this.val = val; }
+    public TreeNode(T val) { super(val); }
 
     /**
      * 构造包含子节点的树
@@ -53,7 +41,7 @@ public class TreeNode<T> {
      */
     @SafeVarargs
     public TreeNode(T val, TreeNode<T> ...children) {
-        this.val = val;
+        this(val);
         this.degree = children.length;
         for ( TreeNode<T> child : children ) {
             this.numberOfNodes += child.numberOfNodes;
@@ -72,6 +60,20 @@ public class TreeNode<T> {
         this.degree++;
         this.numberOfNodes++;
         this.children.add(node);
+    }
+
+    /**
+     * 为当前节点在指定位置添加一个节点
+     *
+     * @param node 将要被添加的节点
+     * @param index 添加位置的索引
+     *
+     * @since 1.01
+     */
+    public void addNode(TreeNode<T> node, int index) {
+        this.degree++;
+        this.numberOfNodes++;
+        this.children.add(index, node);
     }
 
     /**
@@ -128,22 +130,28 @@ public class TreeNode<T> {
      *
      * @see idni.jbc.forfree.struct.tree.TreeNode
      */
+    @SuppressWarnings("unchecked")
     public static int depth(TreeNode node) {
-        int depth = 1, nodeDepth = 1;
-        Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
-        deque.addFirst(node);
+        if ( node == null ) {
+            return 0;
+        }
 
-        TreeNode tempNode;
-        while ( (tempNode = deque.pollFirst()) != null ) {
+        int depth = 0, nodeDepth = 0;
+        Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
+        deque.push(node);
+
+        while ( deque.size() > 0 ) {
+            nodeDepth++;
+            TreeNode tempNode = deque.pop();
             List<TreeNode> children = tempNode.getForest();
             int childrenNum = children.size();
 
             if ( children.size() == 0 ) {
                 depth = depth >= nodeDepth ? depth : nodeDepth;
+                nodeDepth--;
             } else {
-                nodeDepth++;
-                for (int i = 0; i < childrenNum; i++ ) {
-                    deque.addFirst(children.get(i));
+                for (int i = childrenNum - 1; i >= 0; i-- ) {
+                    deque.push(children.get(i));
                 }
             }
         }
@@ -158,9 +166,11 @@ public class TreeNode<T> {
      * @since 1.01
      */
     public int clear() {
-        int num = this.children.size();
-        this.numberOfNodes -= num;
         this.degree = 0;
+        int num = this.children.size();
+        for (int i = 0; i < num; i++) {
+            this.numberOfNodes -= this.children.get(i).numberOfNodes;
+        }
         this.children.clear();
         return num;
     }
@@ -179,10 +189,7 @@ public class TreeNode<T> {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + (val != null ? val.hashCode() : 0);
         result = 31 * result + (children != null ? children.hashCode() : 0);
-        result = 31 * result + (int)degree;
-        result = 31 * result + (int)numberOfNodes;
         return result;
     }
 
@@ -193,9 +200,6 @@ public class TreeNode<T> {
 
         TreeNode object = (TreeNode) o;
 
-        if (val != null ? !val.equals(object.val) : object.val != null) return false;
-        if (children != null ? !children.equals(object.children) : object.children != null) return false;
-        if (degree != object.degree) return false;
-        return !(numberOfNodes != object.numberOfNodes);
+        return !(children != null ? !children.equals(object.children) : object.children != null);
     }
 }
