@@ -29,8 +29,16 @@ public class BinaryTree<T> extends Leaf<T>{
 
     public BinaryTree(T val) { super(val); }
 
+    public BinaryTree(T val, BinaryTree<T> left, BinaryTree<T> right) { 
+        super(val);
+        this.numberOfNodes += 2;
+        this.degree += 2;
+        this.left = left;
+        this.right = right;
+    }
+
     /**
-     * 构造包含子节点的树
+     * 为当前节点添加左子树
      *
      * @param left 左子树
      * @return 是否添加成功 当节点存在左子树时返回 false 表示添加失败
@@ -77,40 +85,57 @@ public class BinaryTree<T> extends Leaf<T>{
         return nodes;
     }
 
+    /**
+     * 获取当前树的深度
+     *
+     * @return 树的深度
+     *
+     * @since 1.01
+     */
     public int depth() {
         return depth(this);
     }
 
+    /**
+     * 获取给定节点代表的前树的深度<br>
+     * 目前以BFS计算
+     *
+     * @param node 指定的节点
+     * @return 树的深度
+     *
+     * @since 1.01
+     *
+     * @see java.util.Deque
+     * @see java.util.ArrayDeque
+     */
     @SuppressWarnings("unchecked")
     public static int depth(BinaryTree node) {
-        if ( node == null ) {
-            return 0;
-        }
-
-        int depth = 0, nodeDepth = 0;
+        if ( node == null ) return 0;
         Deque<BinaryTree> deque = new ArrayDeque<BinaryTree>();
-        deque.push(node);
-
+        int depth = 0;
+        deque.add(node);
         while ( deque.size() > 0 ) {
-            nodeDepth++;
-            BinaryTree tempNode = deque.pop();
-            BinaryTree left = tempNode.left;
-            BinaryTree right = tempNode.right;
-
-            if ( left == null && right == null ) {
-                depth = depth >= nodeDepth ? depth : nodeDepth;
-                nodeDepth--;
-            } else {
-                nodeDepth++;
-                if ( right != null ) {
-                    deque.push(right);
-                }
-                if ( left != null ) {
-                    deque.push(left);
-                }
+            int nodes = deque.size();
+            for ( int i = 0; i < nodes; i++ ) {
+                BinaryTree<Integer> tempNode = deque.poll();
+                if ( tempNode.left != null ) deque.add(tempNode.left);
+                if ( tempNode.right != null ) deque.add(tempNode.right);
             }
+            depth++;
         }
         return depth;
+        /*while ( node != null || deque.size() > 0 ) {
+            while ( node != null ) {
+                System.out.println(node.val);
+                deque.push(node);
+                node = node.left;
+            }
+            depth = depth > deque.size() ? depth : deque.size();
+            if ( deque.size() > 0 ) {
+                node = deque.pop().right;
+            }
+        }
+        return depth;*/
     }
 
     /**
@@ -143,7 +168,7 @@ public class BinaryTree<T> extends Leaf<T>{
      *
      * @since 1.01
      */
-    public boolean ifLeaf() {
+    public boolean isLeaf() {
         return this.degree == 0;
     }
 
@@ -158,12 +183,12 @@ public class BinaryTree<T> extends Leaf<T>{
      *
      * @return 如果是满二叉树，则返回trun，否则返回false
      */
-    public boolean ifFull() {
+    public boolean isFull() {
         return this.numberOfNodes == (Math.pow(2, this.depth()) - 1);
     }
 
     /**
-     * 判断二叉树是否是完全二叉树
+     * 判断二叉树是否是满二叉树
      *
      * <pre>
      * {@code

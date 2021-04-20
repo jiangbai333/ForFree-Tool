@@ -132,28 +132,19 @@ public class TreeNode<T> extends Leaf<T> {
      */
     @SuppressWarnings("unchecked")
     public static int depth(TreeNode node) {
-        if ( node == null ) {
-            return 0;
-        }
-
-        int depth = 0, nodeDepth = 0;
+        if ( node == null ) return 0;
         Deque<TreeNode> deque = new ArrayDeque<TreeNode>();
+        int depth = 0;
         deque.push(node);
-
         while ( deque.size() > 0 ) {
-            nodeDepth++;
-            TreeNode tempNode = deque.pop();
-            List<TreeNode> children = tempNode.getForest();
-            int childrenNum = children.size();
-
-            if ( children.size() == 0 ) {
-                depth = depth >= nodeDepth ? depth : nodeDepth;
-                nodeDepth--;
-            } else {
-                for (int i = childrenNum - 1; i >= 0; i-- ) {
-                    deque.push(children.get(i));
+            int nodes = deque.size();
+            for (int i = 0; i < nodes; i++) {
+                List<TreeNode> children = deque.pop().getForest();
+                for (TreeNode child : children ) {
+                    if ( child != null ) deque.push(child);
                 }
             }
+            depth++;
         }
         return depth;
     }
