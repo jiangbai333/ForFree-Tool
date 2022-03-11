@@ -12,14 +12,14 @@ public class TreeNodeTest {
     @Before
     public void init() {
         BinaryTree<Integer> 
-            BTree17 = new BinaryTree<Integer>(17),
-            BTree16 = new BinaryTree<Integer>(16),
-            BTree15 = new BinaryTree<Integer>(15),
-            BTree14 = new BinaryTree<Integer>(14),
-            BTree13 = new BinaryTree<Integer>(13),
-            BTree12 = new BinaryTree<Integer>(12),
-            BTree11 = new BinaryTree<Integer>(11),
-            BTree10 = new BinaryTree<Integer>(10),
+            BTree17 = new BinaryTree<Integer>(7),
+            BTree16 = new BinaryTree<Integer>(6),
+            BTree15 = new BinaryTree<Integer>(5),
+            BTree14 = new BinaryTree<Integer>(4),
+            BTree13 = new BinaryTree<Integer>(3),
+            BTree12 = new BinaryTree<Integer>(2),
+            BTree11 = new BinaryTree<Integer>(1),
+            BTree10 = new BinaryTree<Integer>(0),
             BTree9 = new BinaryTree<Integer>(9, BTree12, BTree13),
             BTree8 = new BinaryTree<Integer>(8, BTree10, BTree11),
             BTree7 = new BinaryTree<Integer>(7, BTree8, BTree9),
@@ -31,7 +31,7 @@ public class TreeNodeTest {
             BTree1 = new BinaryTree<Integer>(1, BTree2, BTree3);
 
         this.BTree = BTree1;
-        System.out.println(BTree17.isLeaf());
+        BTree3.toString();
 
     }
 
