@@ -29,6 +29,19 @@ public class BinaryTree<T> extends Leaf<T>{
 
     public BinaryTree(T val) { super(val); }
 
+    public BinaryTree(T[] vals) {
+        int sp = 0, nodes = vals.length;
+        BinaryTree<T> root = new BinaryTree<>(vals[sp]);
+        while ( sp < nodes ) {
+            if ( (sp * 2 + 1) >= vals.length || (sp * 2 + 2) >= vals.length ) break;
+            BinaryTree<T> BTree = new BinaryTree<T>(vals[sp]);
+            if ( sp == 0 ) root = BTree;
+            if ( vals[sp * 2 + 1] != null ) BTree.addLeft(new BinaryTree<T>(vals[sp * 2 + 1]));
+            if ( vals[sp * 2 + 2] != null ) BTree.addLeft(new BinaryTree<T>(vals[sp * 2 + 1]));
+            sp++;
+        }
+    }
+
     public BinaryTree(T val, BinaryTree<T> left, BinaryTree<T> right) { 
         super(val);
         this.numberOfNodes += 2;
@@ -200,5 +213,54 @@ public class BinaryTree<T> extends Leaf<T>{
      */
     public boolean isComplete() {
         return this.numberOfNodes > (Math.pow(2, this.depth()) - 1);
+    }
+
+    public String toString() {
+        int depth = this.depth(),
+            sp = 0;
+        BinaryTree[] nodes = new BinaryTree[1];
+        nodes[0] = this;
+        while ( sp < depth ) {
+            BinaryTree[] tempNodes = new BinaryTree[(int)Math.pow(2, sp + 1)];
+            int distanceToTheLeft = 2 * (int)(Math.pow(2, depth - sp) - 2);
+            int betweenNodes = 2 * (int)(Math.pow(2, depth - sp + 1)) - 1;
+            for (int i = 0; i < nodes.length; i++) {
+                BinaryTree<T> node = nodes[i];
+                /*int digitsLength = 0;
+                if ( node != null && node.val != null ) {
+                    int l = 1; T val = node.val;
+                    while ( (val /= 10) != 0 ) {
+                        l++;
+                    }
+                    digitsLength = l;
+                }*/
+
+                if ( i == 0 ) {
+                    for (int j = 0; j < distanceToTheLeft; j++) {
+                        //System.out.print(" ");
+                        if ( j <= distanceToTheLeft / 2 - 3 ) System.out.print(" ");
+                        else if ( j == distanceToTheLeft / 2 + 1 - 3 ) System.out.print("⏊");
+                        else System.out.print("⎺");
+                    }
+                } else {
+                    for (int j = 0; j < betweenNodes/* - l*/; j++) {
+                        System.out.print(" ");
+                    }
+                }
+                if ( node == null || node.val == null ) {
+                    tempNodes[2 * i] = null;
+                    tempNodes[2 * i + 1] = null;
+                    System.out.print(" ");
+                } else {
+                    tempNodes[2 * i] = node.left;
+                    tempNodes[2 * i + 1] = node.right;
+                    System.out.print(node.val);
+                }
+            }
+            System.out.println();
+            sp++;
+            nodes = tempNodes;
+        }
+        return null;
     }
 }

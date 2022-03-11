@@ -32,8 +32,8 @@ public class UnitConversion {
      *
      * @since 1.0.1
      */
-    public static int normalToHBO(String ip) {
-        int i = 0;
+    public static long normalToHBO(String ip) {
+        long i = 0;
         String[] nums = ip.split("\\.");
         for ( String num : nums ) {
             i = ( i << 8 ) + Integer.parseInt(num);

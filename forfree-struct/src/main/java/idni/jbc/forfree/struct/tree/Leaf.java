@@ -25,7 +25,7 @@ public class Leaf<T> {
     //添加节点时需要将父节点depth更新，一直回溯到根结点
     protected int depth = 1;
 
-    private Leaf() { }
+    public Leaf() { }
 
     /**
      * 构造节点
