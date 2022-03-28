@@ -51,6 +51,13 @@ public final class ArrayTool {
         return rt;
     }*/
 
+    /**
+     * JDK bug
+     * 没法用这样的方式重写方法，会造成方法引用不明确
+     * http://mail.openjdk.java.net/pipermail/lambda-dev/2013-November/011394.html
+     * https://bugs.openjdk.java.net/browse/JDK-8029718#
+     * https://stackoverflow.com/questions/23430854/lambda-expression-and-method-overloading-doubts
+     */
     //public static <T> void reverse(Consumer<T[]> handle, T[] arr) {
         //handle.accept(arr);
     //}
