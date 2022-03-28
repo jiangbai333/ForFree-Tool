@@ -23,15 +23,15 @@ public final class ArrayTool {
 
     private ArrayTool() { }
 
-    public static int[] reverse(int[] arr) {
-        int length = arr.length;
-        int[] rt = new int[length--];
-        for (int i = 0, j = length; i <= j; ) {
-            rt[j] = arr[i];
-            rt[i++] = arr[j--];
-        }
-        return rt;
-    }
+    //public static int[] reverse(int[] arr) {
+        //int length = arr.length;
+        //int[] rt = new int[length--];
+        //for (int i = 0, j = length; i <= j; ) {
+            //rt[j] = arr[i];
+            //rt[i++] = arr[j--];
+        //}
+        //return rt;
+    //}
 
     /*public static int[] reverse(int[] arr) {
         Object[] transformArr = Array.newInstance(PRIMITIVES_TO_WRAPPERS.get(arr.getClass().getComponentType()), arr.length);
@@ -51,20 +51,21 @@ public final class ArrayTool {
         return rt;
     }*/
 
-    public static <T> void reverse(Consumer<T[]> handle, T[] arr) {
-        handle.accept(arr);
-    }
+    //public static <T> void reverse(Consumer<T[]> handle, T[] arr) {
+        //handle.accept(arr);
+    //}
 
     public static <T, R> R[] reverse(Function<T[], R[]> handle, T[] arr) {
-        handle.apply(arr);
+        return handle.apply(arr);
     }
 
-    public static <T> void reverse(T[] a) {
-        for (int i = 0, j = a.length; i <= j; ) {
+    public static <T> T[] reverse(T[] a) {
+        for (int i = 0, j = a.length - 1; i <= j; ) {
             T t = a[i];
             a[i++] = a[j];
-            a[j++] = t;
+            a[j--]= t;
         }
+        return a;
     }
 
     /*public static <T> T[] reverse(T[] arr) {
