@@ -20,10 +20,6 @@ public class UnitConversion {
         }};
     }
 
-    /** 
-     *
-     *
-     */
     public static Long toByte(int origin, String unit) {
         return Association.dic.get(unit.toLowerCase()).apply(origin);
     }
@@ -31,9 +27,13 @@ public class UnitConversion {
     /**
      * 点分10进制ip 转为 主机字节顺序格式（HBO，Host Byte Order）
      *
+     * @param ip 点分10进制ip，{@link java.lang.String}类型
+     * @return int 主机子节序ip
+     *
+     * @since 1.0.1
      */
-    public static int normalToHBO(String ip) {
-        int i = 0;
+    public static long normalToHBO(String ip) {
+        long i = 0;
         String[] nums = ip.split("\\.");
         for ( String num : nums ) {
             i = ( i << 8 ) + Integer.parseInt(num);

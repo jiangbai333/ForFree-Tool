@@ -8,16 +8,10 @@
     <version>1.01</version>
   </parent>
   <groupId>idni.jbc.forfree</groupId>
-  <artifactId>forfree-tools</artifactId>
+  <artifactId>forfree-struct</artifactId>
   <version>1.01</version>
-  <name>forfree-tools</name>
+  <name>forfree-struct</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.13</version>
-    </dependency>
   </dependencies>
 </project>
