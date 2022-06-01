@@ -28,4 +28,60 @@
       <version>1.01</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <!-- 输出路径 目前不太适用 因为在生成阶段 没法清除上次生成的 如果是在容器里就好一些 -->
+          <!--<outputDirectory>../test/report/</outputDirectory>-->
+          <!--统计的包-->
+          <!--<includes>-->
+            <!--<include>com/xxx/comm/utils/**</include>-->
+          <!--</includes>-->
+          <!--排除的包-->
+          <!--<excludes>-->
+            <!--<exclude>com/xxx/comm/utils/**</exclude>-->
+            <!--<exclude>com/xxx/common/annotation/**</exclude>-->
+          <!--</excludes>-->
+        </configuration>
+        <executions>
+          <execution>
+            <id>report-aggregate</id>
+            <phase>verify</phase>
+            <goals>
+              <!--独立报告-->
+              <!--<goal>report</goal>-->
+              <!--聚合报告-->
+              <goal>report-aggregate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <aggregate>true</aggregate>
+          <tags>
+            <tag>
+                <name>Description</name>
+                <placement>a</placement>
+                <head>用途</head>
+            </tag>
+        </tags>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
+    </plugins>
+  </build>
 </project>

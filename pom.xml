@@ -50,6 +50,7 @@
         </configuration>
       </plugin>
       <!-- 跳过测试 -->
+      <!-- 需要看看surefire:test -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -61,18 +62,8 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <!--<configuration>-->
-          <!--统计的包-->
-          <!--<includes>
-            <include>com/xxx/comm/utils/**</include>
-          </includes>-->
-          <!--排除的包-->
-          <!--<excludes>
-            <exclude>com/xxx/comm/utils/**</exclude>
-            <exclude>com/xxx/common/annotation/**</exclude>
-          </excludes>-->
-        <!--</configuration>-->
         <executions>
+          <!-- 这一段execution 是做前置准备工作 -->
           <execution>
             <id>pre-test</id>
             <goals>
@@ -80,13 +71,13 @@
             </goals>
           </execution>
           <execution>
-            <id>report-aggregate</id>
+            <id>report</id>
             <phase>test</phase>
             <goals>
               <!--独立报告-->
-              <!--<goal>report</goal>-->
+              <goal>report</goal>
               <!--聚合报告-->
-              <goal>report-aggregate</goal>
+              <!--<goal>report-aggregate</goal>-->
             </goals>
           </execution>
         </executions>
