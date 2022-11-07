@@ -40,4 +40,20 @@ public class UnitConversion {
         }
         return i;
     }
+
+    /**
+    * 判断是否为内网ip
+     */
+    public static boolean isPrivateIp(String ip) {
+        return isPrivateIp(normalToHBO(ip));
+    }
+
+    /**
+    * 判断是否为内网ip
+     */
+    public static boolean isPrivateIp(long ip) {
+        return ( ip > 167772160 && ip < 184549375 )
+                || ( ip > 2886729728L && ip < 2887778303L )
+                ||  ( ip > 3232235520L && ip < 3232301055L );
+    }
 }
