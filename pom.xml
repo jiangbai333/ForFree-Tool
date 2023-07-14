@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>idni.jbc.forfree</groupId>
+  <artifactId>forfree-all</artifactId>
+  <packaging>pom</packaging>
+  <version>1.01</version>
+  <name>forfree-all</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+
+    <!-- versions -->
+    <compile.version>8</compile.version>
+    <junit.version>4.13</junit.version>
+    <lombok.version>1.18.12</lombok.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.1-jre</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.79</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${compile.version}</source>
+          <target>${compile.version}</target>
+          <!-- 完整的编译检查 -->
+          <compilerArgument>-Xlint:unchecked</compilerArgument>
+        </configuration>
+      </plugin>
+      <!-- 跳过测试 -->
+      <!-- 需要看看surefire:test -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+        <version>2.22.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <!-- 这一段execution 是做前置准备工作 -->
+          <execution>
+            <id>pre-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <!--独立报告-->
+              <goal>report</goal>
+              <!--聚合报告-->
+              <!--<goal>report-aggregate</goal>-->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+        </configuration>
+        <executions>
+          <execution>
+            <id>aggregate</id>
+            <phase>site</phase>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
+          </execution>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <aggregate>true</aggregate>
+          <tags>
+            <tag>
+                <name>Description</name>
+                <placement>a</placement>
+                <head>用途</head>
+            </tag>
+        </tags>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
+    </plugins>
+  </build>
+  <profiles>
+    <!--cobertura 生成测试覆盖报表-->
+    <!-- 网上还有一个版本是写在plugin里 后续可以试一下 -->
+    <!-- mvn cobertura:cobertura -->
+    <!--<profile>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>2.7</version>
+            <configuration>
+              <formats>
+                <format>html</format>
+                <format>xml</format>
+              </formats>
+              <check/>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>-->
+  </profiles>
+  <modules>
+    <module>forfree-core</module>
+    <module>forfree-tools</module>
+    <module>forfree-hex</module>
+    <module>forfree-struct</module>
+  </modules>
+</project>
