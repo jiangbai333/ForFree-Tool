@@ -32,10 +32,10 @@ public class DateToolTest {
 
     @Test
     public void testYear() {
-        Assert.assertEquals(2022, DateTool.year());
-        Assert.assertEquals(2022, DateTool.year(new Date()));
+        Assert.assertEquals(2023, DateTool.year());
+        Assert.assertEquals(2023, DateTool.year(new Date()));
         //Assert.assertEquals(2020, DateTool.year(1597818380424L));
-        Assert.assertEquals(2022, DateTool.year(Calendar.getInstance()));
+        Assert.assertEquals(2023, DateTool.year(Calendar.getInstance()));
         //Assert.assertEquals(2020, DateTool.year(0.1));
     }
 }
