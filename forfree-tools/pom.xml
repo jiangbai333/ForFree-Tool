@@ -7,7 +7,6 @@
     <artifactId>forfree-all</artifactId>
     <version>1.01</version>
   </parent>
-  <groupId>idni.jbc.forfree</groupId>
   <artifactId>forfree-tools</artifactId>
   <version>1.01</version>
   <name>forfree-tools</name>
